@@ -1,0 +1,10 @@
+flask
+spacy
+fuzzywuzzy
+python-Levenshtein
+requests
+numpy
+pandas
+gunicorn
+waitress
+flask-cors

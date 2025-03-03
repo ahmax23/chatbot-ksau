@@ -1,0 +1,884 @@
+{
+  "policy_metadata": {
+    "title": {
+      "en": "Email Security Policy",
+      "ar": "سياسة أمن البريد الإلكتروني"
+    },
+    "document_label": "CSPP.006",
+    "steward_department": {
+      "en": "ITS – Cybersecurity Unit",
+      "ar": "خدمات تقنية المعلومات - وحدة الأمن السيبراني"
+    },
+    "approval_date": "02/05/2024",
+    "next_review": "20/05/2025",
+    "version": "1.3",
+    "purpose": {
+      "en": "To define cybersecurity requirements for protecting KSAU-HS email systems, minimizing risks, and preserving confidentiality, integrity, and availability",
+      "ar": "لتحديد متطلبات الأمن السيبراني لحماية أنظمة البريد الإلكتروني في جامعة الملك سعود بن عبدالعزيز للعلوم الصحية، وتقليل المخاطر، والحفاظ على السرية والنزاهة والتوافر"
+    },
+    "scope": {
+      "en": "All KSAU-HS information and technology assets (including email systems) and all personnel (employees and contractors)",
+      "ar": "جميع أصول المعلومات والتقنية في جامعة الملك سعود بن عبدالعزيز للعلوم الصحية (بما في ذلك أنظمة البريد الإلكتروني) وجميع العاملين (الموظفين والمتعاقدين)"
+    }
+  },
+  "entities": [
+    {
+      "entity_type": "organization",
+      "values": [
+        {
+          "en": "KSAU-HS",
+          "ar": "جامعة الملك سعود بن عبدالعزيز للعلوم الصحية"
+        },
+        {
+          "en": "National Cybersecurity Authority (NCA)",
+          "ar": "الهيئة الوطنية للأمن السيبراني"
+        }
+      ],
+      "descriptions": {
+        "KSAU-HS": {
+          "en": "King Saud bin Abdulaziz University for Health Sciences, the organization that owns and operates the email systems covered by this policy",
+          "ar": "جامعة الملك سعود بن عبدالعزيز للعلوم الصحية، المؤسسة التي تمتلك وتشغل أنظمة البريد الإلكتروني المشمولة بهذه السياسة"
+        },
+        "National Cybersecurity Authority (NCA)": {
+          "en": "The national authority in Saudi Arabia that issues cybersecurity controls and regulations",
+          "ar": "الهيئة الوطنية في المملكة العربية السعودية المسؤولة عن إصدار ضوابط ولوائح الأمن السيبراني"
+        }
+      }
+    },
+    {
+      "entity_type": "technology",
+      "values": [
+        {
+          "en": "Data Leakage Prevention (DLP)",
+          "ar": "منع تسرب البيانات"
+        },
+        {
+          "en": "Advanced Persistent Threats (APTs)",
+          "ar": "التهديدات المتقدمة المستمرة"
+        },
+        {
+          "en": "zero-day malware",
+          "ar": "البرمجيات الخبيثة صفر يوم"
+        },
+        {
+          "en": "sandbox",
+          "ar": "البيئة المعزولة"
+        },
+        {
+          "en": "Send Protection Framework (SPF)",
+          "ar": "إطار حماية الإرسال"
+        },
+        {
+          "en": "DomainKeys Identified Mail (DKIM)",
+          "ar": "البريد المعرف بمفاتيح النطاق"
+        },
+        {
+          "en": "Domain-based Message Authentication, Reporting and Conformance (DMARC)",
+          "ar": "مصادقة الرسائل المستندة إلى النطاق والإبلاغ والتوافق"
+        },
+        {
+          "en": "Multi-Factor Authentication (MFA)",
+          "ar": "المصادقة متعددة العوامل"
+        },
+        {
+          "en": "email encryption",
+          "ar": "تشفير البريد الإلكتروني"
+        },
+        {
+          "en": "email archiving",
+          "ar": "أرشفة البريد الإلكتروني"
+        },
+        {
+          "en": "email backup",
+          "ar": "النسخ الاحتياطي للبريد الإلكتروني"
+        },
+        {
+          "en": "open mail relay",
+          "ar": "خادم البريد المفتوح"
+        }
+      ],
+      "descriptions": {
+        "Data Leakage Prevention (DLP)": {
+          "en": "Technology that detects and prevents the unauthorized transmission of sensitive information via email",
+          "ar": "تقنية تكتشف وتمنع النقل غير المصرح به للمعلومات الحساسة عبر البريد الإلكتروني"
+        },
+        "Advanced Persistent Threats (APTs)": {
+          "en": "Sophisticated, targeted cyberattacks where an unauthorized user gains access to a network and remains undetected for an extended period",
+          "ar": "هجمات إلكترونية متطورة ومستهدفة حيث يكتسب المستخدم غير المصرح له الوصول إلى الشبكة ويظل غير مكتشف لفترة طويلة"
+        },
+        "zero-day malware": {
+          "en": "Previously unknown malware for which no specific defense or patch exists",
+          "ar": "برمجيات خبيثة غير معروفة مسبقاً ولا يوجد لها دفاع أو تصحيح محدد"
+        },
+        "sandbox": {
+          "en": "A secure, isolated environment where suspicious email attachments and links can be executed and analyzed without risk to the actual system",
+          "ar": "بيئة آمنة ومعزولة حيث يمكن تنفيذ وتحليل مرفقات البريد الإلكتروني والروابط المشبوهة دون مخاطر على النظام الفعلي"
+        },
+        "Send Protection Framework (SPF)": {
+          "en": "An email authentication method that specifies which mail servers are authorized to send email on behalf of a domain",
+          "ar": "طريقة مصادقة البريد الإلكتروني التي تحدد خوادم البريد المصرح لها بإرسال البريد الإلكتروني نيابة عن نطاق معين"
+        },
+        "DomainKeys Identified Mail (DKIM)": {
+          "en": "An email authentication method that adds a digital signature to emails, verifying that they were sent by an authorized mail server",
+          "ar": "طريقة مصادقة البريد الإلكتروني التي تضيف توقيعاً رقمياً إلى رسائل البريد الإلكتروني، للتحقق من إرسالها من خادم بريد مصرح له"
+        },
+        "Domain-based Message Authentication, Reporting and Conformance (DMARC)": {
+          "en": "An email authentication protocol that uses SPF and DKIM to detect email spoofing and prevent phishing",
+          "ar": "بروتوكول مصادقة البريد الإلكتروني الذي يستخدم SPF و DKIM للكشف عن تزوير البريد الإلكتروني ومنع التصيد الاحتيالي"
+        },
+        "Multi-Factor Authentication (MFA)": {
+          "en": "A security process that requires users to provide two or more verification factors to gain access to email systems",
+          "ar": "عملية أمنية تتطلب من المستخدمين تقديم عاملين أو أكثر من عوامل التحقق للوصول إلى أنظمة البريد الإلكتروني"
+        },
+        "email encryption": {
+          "en": "The process of encoding email messages to make them unreadable to anyone except the intended recipient",
+          "ar": "عملية تشفير رسائل البريد الإلكتروني لجعلها غير قابلة للقراءة لأي شخص باستثناء المستلم المقصود"
+        },
+        "email archiving": {
+          "en": "The process of preserving email communications for future reference, compliance, or legal purposes",
+          "ar": "عملية حفظ اتصالات البريد الإلكتروني للرجوع إليها مستقبلاً أو لأغراض الامتثال أو القانونية"
+        },
+        "email backup": {
+          "en": "The process of creating and storing copies of email data to enable recovery in case of data loss",
+          "ar": "عملية إنشاء وتخزين نسخ من بيانات البريد الإلكتروني للتمكن من استعادتها في حالة فقدان البيانات"
+        },
+        "open mail relay": {
+          "en": "An SMTP server configured to allow third parties to relay email messages, potentially enabling spam and unauthorized use",
+          "ar": "خادم SMTP مهيأ للسماح لأطراف ثالثة بتوجيه رسائل البريد الإلكتروني، مما قد يمكن من إرسال الرسائل غير المرغوب فيها والاستخدام غير المصرح به"
+        }
+      }
+    },
+    {
+      "entity_type": "role",
+      "values": [
+        {
+          "en": "System Administrator",
+          "ar": "مدير النظام"
+        },
+        {
+          "en": "personnel (employees and contractors)",
+          "ar": "العاملون (الموظفون والمتعاقدون)"
+        },
+        {
+          "en": "ITS",
+          "ar": "خدمات تقنية المعلومات"
+        },
+        {
+          "en": "Internal Audit",
+          "ar": "المراجعة الداخلية"
+        },
+        {
+          "en": "Cybersecurity Directorate (MNG-CSD)",
+          "ar": "إدارة الأمن السيبراني"
+        }
+      ],
+      "descriptions": {
+        "System Administrator": {
+          "en": "Individual responsible for maintaining and operating email systems",
+          "ar": "الشخص المسؤول عن صيانة وتشغيل أنظمة البريد الإلكتروني"
+        },
+        "personnel (employees and contractors)": {
+          "en": "All individuals working for or on behalf of KSAU-HS who use email systems",
+          "ar": "جميع الأفراد العاملين لدى أو نيابة عن جامعة الملك سعود بن عبدالعزيز للعلوم الصحية الذين يستخدمون أنظمة البريد الإلكتروني"
+        },
+        "ITS": {
+          "en": "Information Technology Services department responsible for implementing and maintaining email security measures",
+          "ar": "قسم خدمات تقنية المعلومات المسؤول عن تنفيذ وصيانة إجراءات أمن البريد الإلكتروني"
+        },
+        "Internal Audit": {
+          "en": "Department responsible for randomly monitoring compliance with the Email Security Policy",
+          "ar": "القسم المسؤول عن المراقبة العشوائية للامتثال لسياسة أمن البريد الإلكتروني"
+        },
+        "Cybersecurity Directorate (MNG-CSD)": {
+          "en": "Department responsible for overseeing cybersecurity measures and conducting both random and annual monitoring of policy implementation",
+          "ar": "الإدارة المسؤولة عن الإشراف على إجراءات الأمن السيبراني وإجراء المراقبة العشوائية والسنوية لتنفيذ السياسة"
+        }
+      }
+    },
+    {
+      "entity_type": "document",
+      "values": [
+        {
+          "en": "Essential Cybersecurity Controls (ECC-1:2018)",
+          "ar": "الضوابط الأساسية للأمن السيبراني"
+        },
+        {
+          "en": "Critical Systems Cybersecurity Controls (CSCC-1:2019)",
+          "ar": "ضوابط الأمن السيبراني للأنظمة الحساسة"
+        },
+        {
+          "en": "Cloud Cybersecurity Controls (CCC – 1: 2020)",
+          "ar": "ضوابط الأمن السيبراني للحوسبة السحابية"
+        },
+        {
+          "en": "Organizations' Social Media Account Cybersecurity Controls (OSMACC -1:2021)",
+          "ar": "ضوابط الأمن السيبراني لحسابات التواصل الاجتماعي للمنظمات"
+        },
+        {
+          "en": "Data Cybersecurity Controls (DCC -1:2022)",
+          "ar": "ضوابط الأمن السيبراني للبيانات"
+        },
+        {
+          "en": "Telework Cybersecurity Controls (TCC -1:2021)",
+          "ar": "ضوابط الأمن السيبراني للعمل عن بعد"
+        },
+        {
+          "en": "Data and Information Classification Policy",
+          "ar": "سياسة تصنيف البيانات والمعلومات"
+        }
+      ],
+      "descriptions": {
+        "Essential Cybersecurity Controls (ECC-1:2018)": {
+          "en": "Baseline cybersecurity controls issued by the NCA that all organizations must implement",
+          "ar": "الضوابط الأساسية للأمن السيبراني الصادرة عن الهيئة الوطنية للأمن السيبراني والتي يجب على جميع المنظمات تنفيذها"
+        },
+        "Critical Systems Cybersecurity Controls (CSCC-1:2019)": {
+          "en": "Additional controls required for systems deemed critical to operations",
+          "ar": "ضوابط إضافية مطلوبة للأنظمة التي تعتبر حاسمة للعمليات"
+        },
+        "Cloud Cybersecurity Controls (CCC – 1: 2020)": {
+          "en": "Controls specific to cloud computing environments and services",
+          "ar": "ضوابط خاصة ببيئات وخدمات الحوسبة السحابية"
+        },
+        "Organizations' Social Media Account Cybersecurity Controls (OSMACC -1:2021)": {
+          "en": "Controls for securing organizational social media accounts",
+          "ar": "ضوابط تأمين حسابات التواصل الاجتماعي الخاصة بالمنظمات"
+        },
+        "Data Cybersecurity Controls (DCC -1:2022)": {
+          "en": "Controls focused on data protection and security",
+          "ar": "ضوابط تركز على حماية البيانات وأمنها"
+        },
+        "Telework Cybersecurity Controls (TCC -1:2021)": {
+          "en": "Controls addressing security for remote work scenarios",
+          "ar": "ضوابط تعالج الأمان في سيناريوهات العمل عن بعد"
+        },
+        "Data and Information Classification Policy": {
+          "en": "KSAU-HS policy defining how data and information should be categorized based on sensitivity and criticality",
+          "ar": "سياسة جامعة الملك سعود بن عبدالعزيز للعلوم الصحية التي تحدد كيفية تصنيف البيانات والمعلومات بناءً على الحساسية والأهمية"
+        }
+      }
+    },
+    {
+      "entity_type": "account_type",
+      "values": [
+        {
+          "en": "generic accounts",
+          "ar": "الحسابات العامة"
+        },
+        {
+          "en": "privileged accounts",
+          "ar": "الحسابات المميزة"
+        }
+      ],
+      "descriptions": {
+        "generic accounts": {
+          "en": "Email accounts shared by multiple users or representing a department or function rather than an individual",
+          "ar": "حسابات البريد الإلكتروني المشتركة بين عدة مستخدمين أو تمثل قسمًا أو وظيفة بدلاً من فرد"
+        },
+        "privileged accounts": {
+          "en": "Accounts with elevated permissions used for system administration or management tasks",
+          "ar": "حسابات ذات صلاحيات مرتفعة تُستخدم لإدارة النظام أو المهام الإدارية"
+        }
+      }
+    },
+    {
+      "entity_type": "security_service",
+      "values": [
+        {
+          "en": "National Portal for Cybersecurity Services (Haseen)",
+          "ar": "البوابة الوطنية للخدمات الأمنية (حِصْن)"
+        }
+      ],
+      "descriptions": {
+        "National Portal for Cybersecurity Services (Haseen)": {
+          "en": "A national platform in Saudi Arabia that provides various cybersecurity services, including email authentication",
+          "ar": "منصة وطنية في المملكة العربية السعودية تقدم خدمات أمنية متنوعة، بما في ذلك مصادقة البريد الإلكتروني"
+        }
+      }
+    }
+  ],
+  "intents": [
+    {
+      "intent": "ask_about_email_protection",
+      "patterns": [
+        {
+          "en": "How does KSAU-HS protect email?",
+          "ar": "كيف تحمي جامعة الملك سعود بن عبدالعزيز للعلوم الصحية البريد الإلكتروني؟"
+        },
+        {
+          "en": "What technologies are used for email security?",
+          "ar": "ما التقنيات المستخدمة لأمن البريد الإلكتروني؟"
+        },
+        {
+          "en": "How do you prevent phishing?",
+          "ar": "كيف تمنعون التصيد الاحتيالي؟"
+        },
+        {
+          "en": "What is being done to protect against spam?",
+          "ar": "ما الذي يتم فعله للحماية من الرسائل غير المرغوب فيها؟"
+        },
+        {
+          "en": "How are suspicious emails handled?",
+          "ar": "كيف يتم التعامل مع رسائل البريد الإلكتروني المشبوهة؟"
+        },
+        {
+          "en": "What systems block malicious emails?",
+          "ar": "ما الأنظمة التي تمنع رسائل البريد الإلكتروني الضارة؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "KSAU-HS implements a multi-layered approach to email protection as outlined in our Email Security Policy. This includes: 1) Filtering technologies to block suspicious email messages, including spam and phishing attempts; 2) Data Leakage Prevention (DLP) systems to protect against data leakage via email from both inside and outside the organization; 3) Advanced technologies to protect email servers against Advanced Persistent Threats (APTs) and zero-day malware; and 4) Sandbox inspection of email attachments and links before they reach users' mailboxes. These measures work together to provide comprehensive protection against various email-based threats.",
+          "ar": "تطبق جامعة الملك سعود بن عبدالعزيز للعلوم الصحية نهجًا متعدد الطبقات لحماية البريد الإلكتروني كما هو موضح في سياسة أمن البريد الإلكتروني. يشمل ذلك: 1) تقنيات التصفية لمنع الرسائل المشبوهة، بما في ذلك الرسائل غير المرغوب فيها ومحاولات التصيد الاحتيالي؛ 2) أنظمة منع تسرب البيانات (DLP) للحماية من تسرب البيانات عبر البريد الإلكتروني من داخل المنظمة وخارجها؛ 3) تقنيات متقدمة لحماية خوادم البريد الإلكتروني من التهديدات المتقدمة المستمرة (APTs) والبرمجيات الخبيثة صفر يوم؛ 4) فحص المرفقات والروابط في بيئة معزولة قبل وصولها إلى صناديق البريد. تعمل هذه الإجراءات معًا لتوفير حماية شاملة ضد التهديدات المختلفة."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_authentication",
+      "patterns": [
+        {
+          "en": "How does KSAU-HS prevent email spoofing?",
+          "ar": "كيف تمنع الجامعة تزوير البريد الإلكتروني؟"
+        },
+        {
+          "en": "What email authentication protocols are used?",
+          "ar": "ما بروتوكولات مصادقة البريد الإلكتروني المستخدمة؟"
+        },
+        {
+          "en": "How are email domains verified?",
+          "ar": "كيف يتم التحقق من نطاقات البريد الإلكتروني؟"
+        },
+        {
+          "en": "What is DMARC and how is it used?",
+          "ar": "ما هو DMARC وكيف يُستخدم؟"
+        },
+        {
+          "en": "How do you ensure emails are legitimate?",
+          "ar": "كيف تتأكدون من شرعية رسائل البريد الإلكتروني؟"
+        },
+        {
+          "en": "What prevents someone from impersonating our domain?",
+          "ar": "ما الذي يمنع الآخرين من انتحال نطاقنا؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "KSAU-HS employs multiple modern technologies to ensure email domain reliability and prevent spoofing. We use the email authentication service within the National Portal for Cybersecurity Services (Haseen) and implement three key protocols: 1) Send Protection Framework (SPF), which specifies which mail servers are authorized to send email on behalf of our domain; 2) DomainKeys Identified Mail (DKIM), which adds a digital signature to verify that emails were sent by an authorized server; and 3) Domain-based Message Authentication, Reporting and Conformance (DMARC), which leverages both SPF and DKIM to detect spoofing attempts. Together, these measures create a robust system that verifies the authenticity of emails and protects against impersonation attacks.",
+          "ar": "تستخدم الجامعة تقنيات حديثة متعددة لضمان موثوقية نطاق البريد الإلكتروني ومنع التزوير. نستخدم خدمة مصادقة البريد الإلكتروني ضمن البوابة الوطنية للخدمات الأمنية (حِصْن) وثلاثة بروتوكولات رئيسية: 1) إطار حماية الإرسال (SPF) الذي يحدد خوادم البريد المصرح لها بإرسال البريد نيابة عن نطاقنا؛ 2) البريد المعرف بمفاتيح النطاق (DKIM) الذي يضيف توقيعًا رقميًا للتحقق من إرسال الرسائل من خادم مصرح به؛ 3) بروتوكول DMARC الذي يستخدم كلا البروتوكولين السابقين للكشف عن محاولات التزوير. معًا، تشكل هذه الإجراءات نظامًا قويًا للتحقق من صحة الرسائل وحماية الهوية."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_remote_access",
+      "patterns": [
+        {
+          "en": "How is remote email access secured?",
+          "ar": "كيف يتم تأمين الوصول عن بعد إلى البريد الإلكتروني؟"
+        },
+        {
+          "en": "What authentication is required for webmail?",
+          "ar": "ما متطلبات المصادقة للوصول إلى البريد الإلكتروني عبر الويب؟"
+        },
+        {
+          "en": "Is MFA required for email access?",
+          "ar": "هل المصادقة متعددة العوامل مطلوبة للوصول إلى البريد؟"
+        },
+        {
+          "en": "How do I access my email securely from outside?",
+          "ar": "كيف أصل إلى بريدي الإلكتروني بأمان من خارج الجامعة؟"
+        },
+        {
+          "en": "What security measures are in place for off-campus email use?",
+          "ar": "ما الإجراءات الأمنية المتبعة لاستخدام البريد خارج الحرم الجامعي؟"
+        },
+        {
+          "en": "How does KSAU-HS secure webmail access?",
+          "ar": "كيف تؤمن الجامعة الوصول إلى البريد الإلكتروني عبر الويب؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "For all remote email access and webmail login, KSAU-HS implements Multi-Factor Authentication (MFA) as mandated by our Email Security Policy. This means that in addition to your username and password, you'll need to provide a second form of verification (such as a code sent to your mobile device, a biometric factor, or a security token). This additional layer of security significantly reduces the risk of unauthorized access, especially when accessing email from public or unsecured networks. The MFA requirement applies to all personnel regardless of role and helps protect both individual accounts and the broader email system from credential-based attacks.",
+          "ar": "تطبق الجامعة المصادقة متعددة العوامل (MFA) للوصول عن بعد إلى البريد الإلكتروني وفقًا لسياسة الأمن. يتطلب ذلك إضافة إلى اسم المستخدم وكلمة المرور، تقديم عامل تحقق ثانٍ (كرمز مرسل إلى هاتفك، أو عامل بيومتري، أو رمز أمان). تُقلل هذه الطبقة الإضافية من مخاطر الوصول غير المصرح به، خاصة عند استخدام شبكات عامة. ينطبق هذا الإجراء على جميع العاملين بغض النظر عن دورهم، مما يحمي الحسابات الفردية والنظام ككل من الهجمات القائمة على اختراق البيانات."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_encryption",
+      "patterns": [
+        {
+          "en": "When are emails encrypted?",
+          "ar": "متى يتم تشفير رسائل البريد الإلكتروني؟"
+        },
+        {
+          "en": "How is classified information protected in email?",
+          "ar": "كيف تُحمى المعلومات المصنفة في البريد الإلكتروني؟"
+        },
+        {
+          "en": "What encryption is used for sensitive emails?",
+          "ar": "ما نوع التشفير المستخدم للرسائل الحساسة؟"
+        },
+        {
+          "en": "Do I need to encrypt my emails?",
+          "ar": "هل أحتاج إلى تشفير رسائلي الإلكترونية؟"
+        },
+        {
+          "en": "How do I send confidential information via email?",
+          "ar": "كيف أرسل معلومات سرية عبر البريد الإلكتروني؟"
+        },
+        {
+          "en": "What determines if an email needs encryption?",
+          "ar": "ما الذي يحدد إذا كانت الرسالة تحتاج إلى تشفير؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "According to our Email Security Policy, any email messages containing classified information must be encrypted using the necessary technologies in accordance with KSAU-HS regulatory procedures. The requirement for encryption is based on the classification level of the information being sent, as defined in our Data and Information Classification Policy. If you're unsure whether your email contains classified information, you should consult this policy or contact the Cybersecurity Unit for guidance. The encryption process is designed to be as seamless as possible while ensuring that sensitive information remains protected during transmission and storage. Remember that proper classification of information is a prerequisite for determining encryption requirements.",
+          "ar": "وفقًا لسياسة أمن البريد الإلكتروني، يجب تشفير أي رسائل تحتوي على معلومات مصنفة باستخدام التقنيات اللازمة وفق الإجراءات التنظيمية. يعتمد ذلك على مستوى تصنيف المعلومات كما هو مُحدد في سياسة تصنيف البيانات. إذا كنت غير متأكد من تصنيف محتوى رسالتك، راجع السياسة أو اتصل بوحدة الأمن السيبراني. صُمم التشفير ليكون سلسًا مع ضمان حماية المعلومات الحساسة أثناء النقل والتخزين. يُذكر أن التصنيف الصحيح للمعلومات هو شرط أساسي لتحديد متطلبات التشفير."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_admin_access",
+      "patterns": [
+        {
+          "en": "Can administrators read my emails?",
+          "ar": "هل يمكن للمدراء قراءة رسائلي الإلكترونية؟"
+        },
+        {
+          "en": "Who has access to my mailbox?",
+          "ar": "من لديه حق الوصول إلى صندوق بريدي؟"
+        },
+        {
+          "en": "Is my email private from System Administrators?",
+          "ar": "هل بريدي الإلكتروني خاص ولا يمكن للمدراء الوصول إليه؟"
+        },
+        {
+          "en": "Can IT staff view my messages?",
+          "ar": "هل يمكن لموظفي تقنية المعلومات رؤية رسائلي؟"
+        },
+        {
+          "en": "What privacy protections exist for my emails?",
+          "ar": "ما إجراءات الخصوصية المتبعة لحماية بريدي؟"
+        },
+        {
+          "en": "Under what circumstances can an admin access my email?",
+          "ar": "في أي ظروف يمكن للمدير الوصول إلى بريدي؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "Your email privacy is protected under our Email Security Policy. System Administrators are explicitly prohibited from accessing any personnel's information and email messages without prior authorization. If access is required for legitimate purposes (such as troubleshooting, security investigations, or legal compliance), administrators must follow defined and approved procedures. This ensures that your privacy is maintained while still allowing for necessary maintenance and security operations. Any unauthorized access would be a violation of policy. If you have concerns about potential unauthorized access, you should report them to the Cybersecurity Directorate for investigation.",
+          "ar": "خصوصية بريدك الإلكتروني محمية بموجب السياسة. يُمنع مدراء النظام من الوصول إلى رسائل أو معلومات الموظفين دون إذن مسبق. إذا تطلب الأمر الوصول لأغراض مشروعة (كفحص الأخطاء أو التحقيقات الأمنية)، يجب اتباع إجراءات معتمدة. يُضمن ذلك الحفاظ على الخصوصية مع تمكين الصيانة الضرورية. أي وصول غير مصرح به يُعد انتهاكًا للسياسة. يُرجى الإبلاغ عن أي مخاوف لإدارة الأمن السيبراني."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_limitations",
+      "patterns": [
+        {
+          "en": "What are the email attachment size limits?",
+          "ar": "ما الحد الأقصى لحجم مرفقات البريد الإلكتروني؟"
+        },
+        {
+          "en": "How big can my mailbox be?",
+          "ar": "ما السعة القصوى لصندوق بريدي؟"
+        },
+        {
+          "en": "Are there restrictions on group emails?",
+          "ar": "هل توجد قيود على إرسال البريد الجماعي؟"
+        },
+        {
+          "en": "What file types can I send via email?",
+          "ar": "ما أنواع الملفات المسموح بإرسالها عبر البريد؟"
+        },
+        {
+          "en": "Is there a limit on how many recipients I can include?",
+          "ar": "هل يوجد حد لعدد المستلمين في الرسالة؟"
+        },
+        {
+          "en": "What are the quotas for email storage?",
+          "ar": "ما حصص التخزين الخاصة بالبريد الإلكتروني؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "The Email Security Policy establishes that attachment sizes, file types, and mailbox capacities are determined based on each user's role and requirements. While specific limits aren't detailed in the policy itself, these parameters are configured by ITS based on several factors including your department, position, and business needs. The policy does specify that sending group messages to many users is limited to prevent system overload and potential abuse. For your specific limits, you should contact the IT Service Desk who can provide information about your current email configuration. If you have special needs that require adjustments to these limits, you'll need to submit a formal request through the appropriate channels.",
+          "ar": "تحدد السياسة أحجام المرفقات وأنواع الملفات وسعة صناديق البريد بناءً على دور المستخدم واحتياجاته. تُضبط هذه المعايير من قبل قسم تقنية المعلومات وفقًا للقسم والمنصب والاحتياجات العملية. تُحد السياسة تقييد الرسائل الجماعية لمنع إساءة الاستخدام. للاطلاع على التفاصيل الخاصة بك، اتصل بدعم تقنية المعلومات. إذا احتجت إلى تعديلات، يجب تقديم طلب رسمي عبر القنوات المخصصة."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_disclaimer",
+      "patterns": [
+        {
+          "en": "Is there an automatic email disclaimer?",
+          "ar": "هل توجد إضافة تلقائية للتنويه في البريد الإلكتروني؟"
+        },
+        {
+          "en": "What is added to external emails?",
+          "ar": "ما الذي يُضاف إلى الرسائل الخارجية؟"
+        },
+        {
+          "en": "Do I need to add a disclaimer to my emails?",
+          "ar": "هل يجب علي إضافة تنويه لرسائلي؟"
+        },
+        {
+          "en": "What does the email footer contain?",
+          "ar": "ما محتوى تذييل البريد الإلكتروني؟"
+        },
+        {
+          "en": "Is there legal text appended to outgoing messages?",
+          "ar": "هل تُضاف نصوص قانونية إلى الرسائل الصادرة؟"
+        },
+        {
+          "en": "How are outgoing emails marked as from KSAU-HS?",
+          "ar": "كيف تُعرِّف الرسائل الصادرة بأنها من الجامعة؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "All email messages sent to recipients outside KSAU-HS are automatically appended with a disclaimer. This is handled automatically by our email system, so you don't need to manually add anything to your outgoing messages. The disclaimer serves multiple purposes: it clarifies that the email is from our organization, includes necessary legal protections, and may contain information about confidentiality requirements. This automatic process ensures consistency in our external communications while helping to protect both the sender and the organization. The exact content of the disclaimer is managed by the legal department in conjunction with ITS and may be updated periodically to reflect current requirements.",
+          "ar": "تُضاف تلقائيًا تنويهات إلى جميع الرسائل المرسلة خارج الجامعة. تتم هذه العملية تلقائيًا عبر نظام البريد، لذا لا حاجة لإضافتها يدويًا. يخدم التنويه أغراضًا متعددة: توضيح مصدر الرسالة، وحماية قانونية، وإرشادات حول السرية. يضمن ذلك الاتساق في التواصل الخارجي وحماية المرسل والمنظمة. يُحدد محتوى التنويه بالتعاون بين القسم القانوني وتقنية المعلومات، وقد يتم تحديثه دوريًا."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_classification",
+      "patterns": [
+        {
+          "en": "How are emails classified?",
+          "ar": "كيف يتم تصنيف رسائل البريد الإلكتروني؟"
+        },
+        {
+          "en": "What is the email classification policy?",
+          "ar": "ما سياسة تصنيف البريد الإلكتروني؟"
+        },
+        {
+          "en": "Do I need to classify my emails?",
+          "ar": "هل يجب علي تصنيف رسائلي؟"
+        },
+        {
+          "en": "How do I mark an email as confidential?",
+          "ar": "كيف أُصنف رسالة على أنها سرية؟"
+        },
+        {
+          "en": "What are the different email sensitivity levels?",
+          "ar": "ما مستويات حساسية البريد الإلكتروني؟"
+        },
+        {
+          "en": "How do I know what classification to use for my email?",
+          "ar": "كيف أعرف التصنيف المناسب لرسالتي؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "According to our Email Security Policy, emails must be classified based on the criticality of their attachments and information, following the KSAU-HS approved Data and Information Classification Policy. The classification process is important because it determines how the email should be handled, including whether encryption is required. You are responsible for properly classifying your outgoing emails based on their content. The Data and Information Classification Policy defines the different sensitivity levels and provides guidance on how to determine the appropriate classification. If you're unsure about how to classify a particular email, you should consult with your supervisor or the Cybersecurity Unit for guidance. Proper classification is essential for ensuring that sensitive information receives the appropriate level of protection.",
+          "ar": "وفقًا للسياسة، يجب تصنيف الرسائل بناءً على حساسية محتواها، كما هو مُحدد في سياسة تصنيف البيانات. يحدد التصنيف الإجراءات المطلوبة (مثل التشفير). يتحمل المرسل مسؤولية التصنيف الصحيح. توضح سياسة التصنيف المستويات المختلفة وتقديم إرشادات للاختيار. إذا كنت غير متأكد، استشر مشرفك أو وحدة الأمن السيبراني. التصنيف الصحيح ضروري لضمان الحماية المناسبة."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_privileged_accounts",
+      "patterns": [
+        {
+          "en": "Can admin accounts use email?",
+          "ar": "هل يمكن للحسابات الإدارية استخدام البريد الإلكتروني؟"
+        },
+        {
+          "en": "Are there special rules for privileged accounts?",
+          "ar": "هل توجد قواعد خاصة للحسابات المميزة؟"
+        },
+        {
+          "en": "Why can't I use email with my admin account?",
+          "ar": "لماذا لا يمكنني استخدام البريد بحسابي الإداري؟"
+        },
+        {
+          "en": "What accounts cannot use email?",
+          "ar": "ما الحسابات الممنوعة من استخدام البريد؟"
+        },
+        {
+          "en": "Can I send emails from my system administrator account?",
+          "ar": "هل يمكنني إرسال رسائل من حساب مدير النظام؟"
+        },
+        {
+          "en": "What's the policy on email for privileged users?",
+          "ar": "ما سياسة استخدام البريد للحسابات المميزة؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "The Email Security Policy explicitly prohibits the use of email for privileged accounts. This is an important security measure designed to reduce the attack surface for these high-value targets. Privileged accounts, such as those used for system administration, have elevated access rights and capabilities within our systems. By separating these accounts from email use, we significantly reduce the risk of compromise through email-based attacks like phishing or malware. If you have administrative responsibilities, you should maintain separate accounts: a standard account for day-to-day activities including email, and a privileged account used only for administrative tasks. This separation of duties is a fundamental security principle that helps protect our most sensitive systems and access rights.",
+          "ar": "تحظر السياسة استخدام البريد الإلكتروني للحسابات المميزة. هذا إجراء أمني يقلل من فرص استهداف هذه الحسابات ذات الصلاحيات العالية. يجب على مدراء النظام استخدام حسابين: حساب عادي للنشاطات اليومية (بما في ذلك البريد)، وحساب مميز للمهام الإدارية فقط. يُقلل هذا الفصل من مخاطر الهجمات عبر البريد الإلكتروني مثل التصيد أو البرمجيات الخبيثة، ويحمي الأنظمة الحساسة."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_gateway_security",
+      "patterns": [
+        {
+          "en": "How are email gateways protected?",
+          "ar": "كيف يتم حماية بوابات البريد الإلكتروني؟"
+        },
+        {
+          "en": "What prevents man-in-the-middle attacks on email?",
+          "ar": "ما الذي يمنع هجمات الرجل في الوسط على البريد؟"
+        },
+        {
+          "en": "Are emails encrypted between servers?",
+          "ar": "هل يتم تشفير البريد بين الخوادم؟"
+        },
+        {
+          "en": "How secure is email transmission?",
+          "ar": "ما مدى أمان نقل البريد الإلكتروني؟"
+        },
+        {
+          "en": "What protects emails in transit?",
+          "ar": "ما الذي يحمي البريد أثناء النقل؟"
+        },
+        {
+          "en": "How does KSAU-HS secure email communications?",
+          "ar": "كيف تؤمن الجامعة اتصالات البريد الإلكتروني؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "To protect email during transmission, our Email Security Policy mandates that connections between email gateways must be encrypted. This encryption prevents inactive man-in-the-middle attacks, where an attacker might attempt to intercept or modify email messages as they travel between servers. The encryption occurs at the transport level, ensuring that even if an attacker were to gain access to the network path between our email gateways, they would not be able to read or alter the encrypted traffic. This measure is part of our defense-in-depth approach to email security, protecting not just the content of emails but also the communication channels themselves. The specific encryption protocols used are regularly reviewed and updated to maintain alignment with current security best practices.",
+          "ar": "تلزم السياسة بتشفير الاتصالات بين بوابات البريد الإلكتروني لمنع هجمات الاعتراض. يحدث التشفير على مستوى النقل، مما يحمي محتوى الرسائل حتى لو تم اختراق الشبكة. يُعد هذا جزءًا من استراتيجية الأمان متعدد الطبقات، حيث يتم تحديث البروتوكولات دوريًا لمواكبة أفضل الممارسات الأمنية."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_policy_compliance",
+      "patterns": [
+        {
+          "en": "Who enforces the email security policy?",
+          "ar": "من ينفذ سياسة أمن البريد الإلكتروني؟"
+        },
+        {
+          "en": "How is the email policy monitored?",
+          "ar": "كيف تتم مراقبة تنفيذ السياسة؟"
+        },
+        {
+          "en": "Who is responsible for email security?",
+          "ar": "من المسؤول عن أمن البريد الإلكتروني؟"
+        },
+        {
+          "en": "How often is email security audited?",
+          "ar": "كم مرة يتم مراجعة أمن البريد؟"
+        },
+        {
+          "en": "What happens if someone violates the email policy?",
+          "ar": "ما عواقب انتهاك سياسة البريد؟"
+        },
+        {
+          "en": "How does KSAU-HS ensure email policy compliance?",
+          "ar": "كيف تضمن الجامعة الامتثال لسياسة البريد؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "Our Email Security Policy establishes a multi-layered approach to compliance monitoring and enforcement. Primary responsibility lies with ITS for implementing and ensuring adherence to the policy provisions. However, oversight is provided through two additional mechanisms: 1) The Internal Audit department conducts random monitoring of policy implementation to ensure compliance; and 2) The Cybersecurity Directorate (MNG-CSD) performs both random and annual monitoring of the policy provisions. This three-tiered approach ensures that policy compliance is regularly verified from different perspectives. While the policy itself doesn't specify the consequences for violations, any identified non-compliance would typically be addressed according to the severity of the violation and in line with KSAU-HS's general procedures for policy infractions.",
+          "ar": "تعتمد الجامعة نهجًا متعدد الطبقات لضمان الامتثال: 1) قسم تقنية المعلومات مسؤول عن التنفيذ؛ 2) المراجعة الداخلية تراقب التنفيذ عشوائيًا؛ 3) إدارة الأمن السيبراني تراقب سنويًا وعشوائيًا. يتم التعامل مع المخالفات وفقًا لشدتها وإجراءات الجامعة العامة."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_email_backup",
+      "patterns": [
+        {
+          "en": "Are emails backed up?",
+          "ar": "هل يتم عمل نسخ احتياطية للبريد؟"
+        },
+        {
+          "en": "How long are emails archived?",
+          "ar": "كم مدة أرشفة البريد الإلكتروني؟"
+        },
+        {
+          "en": "What happens to old emails?",
+          "ar": "ما مصير الرسائل القديمة؟"
+        },
+        {
+          "en": "Can I recover deleted emails?",
+          "ar": "هل يمكن استعادة الرسائل المحذوفة؟"
+        },
+        {
+          "en": "What is the email retention policy?",
+          "ar": "ما سياسة الاحتفاظ بالبريد الإلكتروني؟"
+        },
+        {
+          "en": "How can I access archived emails?",
+          "ar": "كيف أصل إلى الرسائل المؤرشفة؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "According to our Email Security Policy, email messages are archived and backed up periodically in accordance with KSAU-HS approved regulatory procedures and policies. This ensures that important communications are preserved for business continuity, compliance, and potential legal requirements. While the policy establishes the requirement for archiving and backup, the specific retention periods and recovery procedures are defined in separate data retention policies. If you need to recover deleted emails, you should contact the IT Service Desk, who can assist with restoration based on the established procedures. The ability to recover emails may depend on factors such as how long ago the email was deleted and the specific backup schedules in place for your mailbox.",
+          "ar": "تُحفظ نسخ احتياطية وتتم أرشفة البريد وفق إجراءات معتمدة. تحدد سياسات الاحتفاظ بالبيانات فترات الأرشفة وآليات الاستعادة. لاسترجاع رسائل محذوفة، اتصل بدعم تقنية المعلومات. تعتمد الإمكانية على وقت الحذف وجدولة النسخ الاحتياطي."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_generic_accounts",
+      "patterns": [
+        {
+          "en": "Who is responsible for shared email accounts?",
+          "ar": "من المسؤول عن الحسابات البريدية المشتركة؟"
+        },
+        {
+          "en": "How are generic emails managed?",
+          "ar": "كيف تُدار الحسابات العامة؟"
+        },
+        {
+          "en": "What is the policy for departmental email accounts?",
+          "ar": "ما سياسة استخدام حسابات الأقسام؟"
+        },
+        {
+          "en": "Who owns group email addresses?",
+          "ar": "من يملك عناوين البريد الجماعية؟"
+        },
+        {
+          "en": "How do we handle shared mailboxes?",
+          "ar": "كيف نتعامل مع صناديق البريد المشتركة؟"
+        },
+        {
+          "en": "What are the rules for functional email accounts?",
+          "ar": "ما قواعد استخدام الحسابات الوظيفية؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "The Email Security Policy requires that all generic accounts must have clearly identified owners and defined responsibilities. Generic accounts include shared mailboxes, departmental addresses, and functional accounts that don't belong to a specific individual. For each such account, there must be a designated owner who is responsible for managing access, ensuring appropriate use, and maintaining security. This accountability is essential for preventing misuse and ensuring that these accounts are properly managed. If you're using a generic account, you should be aware of who the designated owner is and what responsibilities you have when using the account. If ownership is unclear for any generic account you use, this should be reported to ITS for proper documentation and assignment of responsibilities.",
+          "ar": "تشترط السياسة تحديد مالك واضح لكل حساب مشترك (كالحسابات الإدارية أو الوظيفية). يتحمل المالك مسؤولية إدارة الوصول والاستخدام الآمن. يجب على المستخدمين معرفة المالك ومسؤولياتهم عند استخدام الحساب. إذا كان المالك غير معروف، يجب إبلاغ تقنية المعلومات لتوثيق ذلك."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_non_authorized_use",
+      "patterns": [
+        {
+          "en": "Can I use my work email for personal matters?",
+          "ar": "هل يمكنني استخدام بريد العمل لأغراض شخصية؟"
+        },
+        {
+          "en": "What are the restrictions on email use?",
+          "ar": "ما القيود المفروضة على استخدام البريد؟"
+        },
+        {
+          "en": "Is personal use of email allowed?",
+          "ar": "هل يسمح بالاستخدام الشخصي للبريد؟"
+        },
+        {
+          "en": "What constitutes unauthorized email use?",
+          "ar": "ما الذي يُعتبر استخدامًا غير مصرح به للبريد؟"
+        },
+        {
+          "en": "Are there limitations on how I can use my KSAU-HS email?",
+          "ar": "هل توجد قيود على استخدام بريد الجامعة؟"
+        },
+        {
+          "en": "What email activities are prohibited?",
+          "ar": "ما الأنشطة الممنوعة في استخدام البريد؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "The Email Security Policy states that necessary measures must be taken to prevent the use of KSAU-HS email for non-authorized business purposes. This means that email resources are provided primarily for professional use related to the organization's activities. While the policy doesn't explicitly define what constitutes 'non-authorized business purposes,' this typically refers to activities that are unrelated to your job responsibilities or the university's mission. This may include extensive personal use, commercial activities, political campaigning, or any use that could bring reputational harm to the institution. For specific guidelines on acceptable email use, you should refer to the KSAU-HS Acceptable Use Policy, which typically provides more detailed information about permitted and prohibited uses of institutional IT resources.",
+          "ar": "تُخصص موارد البريد للأغراض المهنية ذات الصلة بأعمال الجامعة. يُمنع الاستخدام غير المرتبط بالمهام الوظيفية (كالاستخدام الشخصي المكثف أو الأنشطة التجارية). للتفاصيل، راجع سياسة الاستخدام المقبول التي توضح الاستخدامات المسموحة والممنوعة."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_open_relay",
+      "patterns": [
+        {
+          "en": "What is open mail relay?",
+          "ar": "ما هو خادم البريد المفتوح؟"
+        },
+        {
+          "en": "How does KSAU-HS prevent email abuse?",
+          "ar": "كيف تمنع الجامعة إساءة استخدام البريد؟"
+        },
+        {
+          "en": "Can outsiders use our email servers?",
+          "ar": "هل يمكن للغير استخدام خوادمنا البريدية؟"
+        },
+        {
+          "en": "What protects against email server misuse?",
+          "ar": "ما الذي يحمي من إساءة استخدام الخوادم؟"
+        },
+        {
+          "en": "Why is open relay dangerous?",
+          "ar": "لماذا يُعتبر خادم البريد المفتوح خطرًا؟"
+        },
+        {
+          "en": "How are email servers secured against unauthorized sending?",
+          "ar": "كيف تُؤمن الخوادم ضد الإرسال غير المصرح به؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "Our Email Security Policy mandates that open mail relay services must be disabled on all email servers. An open mail relay is an SMTP server configuration that allows any third party to send email through our servers, which can be exploited for sending spam, phishing emails, or malware. By disabling open relay functionality, we prevent unauthorized parties from using our email infrastructure to send messages. This is a critical security measure that protects our email reputation, prevents abuse of our resources, and reduces the risk of our domains being blacklisted by spam filters. The configuration of our email servers is regularly audited to ensure that this protection remains in place and effective.",
+          "ar": "تُعطل ميزة الخادم المفتوح في جميع خوادم البريد لمنع إرسال الرسائل غير المرغوب فيها. يُعد هذا الإجراء ضروريًا لحماية سمعة النطاق ومنع إدراجه في القوائم السوداء. يتم تدقيق إعدادات الخوادم دوريًا لضمان فعالية الحماية."
+        }
+      ]
+    },
+    {
+      "intent": "ask_about_policy_purpose",
+      "patterns": [
+        {
+          "en": "What is the purpose of the Email Security Policy?",
+          "ar": "ما الغرض من سياسة أمن البريد الإلكتروني؟"
+        },
+        {
+          "en": "Why do we have email security rules?",
+          "ar": "لماذا توجد قواعد أمنية للبريد؟"
+        },
+        {
+          "en": "What does the email policy aim to achieve?",
+          "ar": "ما أهداف سياسة البريد الإلكتروني؟"
+        },
+        {
+          "en": "What are the goals of email security at KSAU-HS?",
+          "ar": "ما أهداف أمن البريد في الجامعة؟"
+        },
+        {
+          "en": "Why was the Email Security Policy created?",
+          "ar": "لماذا وُضعت سياسة أمن البريد؟"
+        },
+        {
+          "en": "What is the email policy trying to protect?",
+          "ar": "ما الذي تحاول سياسة البريد حمايته؟"
+        }
+      ],
+      "responses": [
+        {
+          "en": "The Email Security Policy was created to define the cybersecurity requirements related to the protection of KSAU-HS's email systems. Its main objective is to minimize cybersecurity risks resulting from both internal and external threats, with the ultimate goal of preserving the confidentiality, integrity, and availability of our email communications. The policy aligns with cybersecurity requirements issued by the National Cybersecurity Authority (NCA) and other relevant legal and regulatory requirements. By establishing clear guidelines and technical controls, the policy creates a framework that enables secure email communication while protecting against various threats such as data leakage, unauthorized access, and malicious attacks.",
+          "ar": "وُضعت السياسة لتحديد متطلبات حماية أنظمة البريد الإلكتروني، وتقليل المخاطر الداخلية والخارجية، والحفاظ على سرية وسلامة وتوافر الاتصالات. تتماشى السياسة مع متطلبات الهيئة الوطنية للأمن السيبراني وتوفر إطارًا للضوابط الفنية والإجرائية لمكافحة التسرب والوصول غير المصرح به والهجمات الإلكترونية."
+        }
+      ]
+    }
+  ],
+  "fallback_responses": [
+    {
+      "en": "I don't have specific information about that aspect of the Email Security Policy. You might want to contact the ITS Cybersecurity Unit for more detailed information.",
+      "ar": "لا تتوفر لدي معلومات تفصيلية عن هذا الجانب من السياسة. يُرجى التواصل مع وحدة الأمن السيبراني في قسم تقنية المعلومات."
+    },
+    {
+      "en": "That specific detail isn't covered in the current Email Security Policy. For more information, please refer to the full policy document or contact your system administrator.",
+      "ar": "لا يتضمن الإصدار الحالي من السياسة تفاصيل عن هذا السؤال. يُرجى مراجعة الوثيقة الكاملة أو الاتصال بمدير النظام."
+    },
+    {
+      "en": "The Email Security Policy doesn't explicitly address that question. For clarification, I'd recommend reaching out to the Cybersecurity team at KSAU-HS.",
+      "ar": "لا تغطي السياسة هذا السؤال بشكل صريح. للتوضيح، نوصي بالتواصل مع فريق الأمن السيبراني بالجامعة."
+    },
+    {
+      "en": "While the Email Security Policy provides general guidelines, that particular scenario isn't specifically addressed. I'd suggest consulting with the ITS department for a definitive answer based on current practices.",
+      "ar": "توفر السياسة إرشادات عامة، ولكن هذا السيناريو غير مُغطى. نوصي باستشارة قسم تقنية المعلومات للحصول على إجابة محدثة."
+    },
+    {
+      "en": "That's a good question that goes beyond what's explicitly stated in the Email Security Policy. The Cybersecurity Directorate (MNG-CSD) would be able to provide an authoritative interpretation for your specific situation.",
+      "ar": "سؤال جيد يتجاوز النص المذكور في السياسة. يمكنك التواصل مع إدارة الأمن السيبراني للحصول على تفسير رسمي يناسب حالتك."
+    }
+  ]
+}

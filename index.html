@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSAU Policy Bot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --secondary: #34d399;
+            --background: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        [dir="rtl"] .message {
+            text-align: right;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            transition: background 0.3s ease;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        #chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        #chatbox {
+            height: 60vh;
+            min-height: 400px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            background: var(--background);
+            position: relative;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 1.25rem;
+            line-height: 1.6;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            transition: all 0.2s ease;
+        }
+
+        .user-message {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.5rem;
+        }
+
+        .bot-message {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border: 1px solid;
+            border-color: var(--background);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-status {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #input-container {
+            display: flex;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-top: 1px solid;
+            border-color: var(--background);
+            gap: 1rem;
+        }
+
+        #custom-input {
+            position: relative;
+        }
+
+        #custom-input[empty]:before {
+            content: attr(placeholder);
+            color: var(--text-secondary);
+            position: absolute;
+            pointer-events: none;
+        }
+
+        button {
+            padding: 0.875rem 1.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--background);
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            padding: 0.5rem 1rem;
+            background: var(--background);
+            color: var(--text-primary);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--background);
+            pointer-events: auto !important;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            background: var(--card-bg);
+            border: 1px solid var(--background);
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            background: var(--card-bg);
+            border: 1px solid var(--background);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 1rem;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @media (max-width: 768px) {
+            #chat-container {
+                width: 100%;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .quick-actions {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-toggle" onclick="toggleLanguage()">
+        <span id="langText">EN</span>
+        <span>🌐</span>
+    </div>
+    
+    <h1 id="headerTitle">💡 كاساو بوت</h1>
+    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+    
+    <div class="quick-actions">
+        <div class="quick-action" data-key="protection">حماية البريد</div>
+        <div class="quick-action" data-key="auth">بروتوكولات المصادقة</div>
+        <div class="quick-action" data-key="remote">الوصول عن بُعد</div>
+        <div class="quick-action" data-key="encryption">قواعد التشفير</div>
+        <div class="quick-action" data-key="classification">تصنيف البريد</div>
+        <div class="quick-action" data-key="attachments">المرفقات</div>
+        <div class="quick-action" data-key="admin">وصول المدير</div>
+        <div class="quick-action" data-key="compliance">الامتثال للسياسة</div>
+        <div class="quick-action" data-key="backups">النسخ الاحتياطية</div>
+        <div class="quick-action" data-key="privileged">الحسابات المميزة</div>
+        <div class="quick-action" data-key="shared">الحسابات المشتركة</div>
+        <div class="quick-action" data-key="usage">قواعد الاستخدام</div>
+        <div class="quick-action" data-key="gateway">أمان البوابة</div>
+        <div class="quick-action" data-key="relay">حماية النقل</div>
+        <div class="quick-action" data-key="overview">نظرة عامة</div>
+        <div class="quick-action" data-key="disclaimer">تنويه البريد</div>
+    </div>
+    
+    <div id="chatbox"></div>
+    
+    <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot" style="animation-delay: 0.2s"></div>
+        <div class="typing-dot" style="animation-delay: 0.4s"></div>
+    </div>
+
+    <div id="input-container">
+        <div id="custom-input" 
+             contenteditable="true" 
+             placeholder="اسأل عن أمن البريد الإلكتروني..."
+             style="flex: 1; padding: 0.875rem 1.5rem; border: 1px solid var(--background); border-radius: 1rem; font-size: 1rem; background: var(--background); color: var(--text-primary); min-height: 24px; outline: none; overflow: auto; white-space: pre-wrap; word-break: break-word;"
+        ></div>
+        <button id="send-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-5-4-9-4 20-12z"/>
+            </svg>
+            <span id="send-button-text">إرسال</span>
+        </button>
+    </div>
+
+    <script>
+        // Language Configuration
+        let currentLang = 'ar';
+        const intentQuestions = {
+            en: {
+                'ask_about_email_protection': 'How does KSAU-HS protect email?',
+                'ask_about_email_authentication': 'What email authentication protocols are used?',
+                'ask_about_remote_access': 'How is remote email access secured?',
+                'ask_about_email_encryption': 'When are emails encrypted?',
+                'ask_about_email_classification': 'How are emails classified?',
+                'ask_about_email_limitations': 'What are the email attachment limits?',
+                'ask_about_admin_access': 'Can administrators read my emails?',
+                'ask_about_policy_compliance': 'Who enforces the email policy?',
+                'ask_about_email_backup': 'Are emails backed up?',
+                'ask_about_privileged_accounts': 'Can admin accounts use email?',
+                'ask_about_generic_accounts': 'How are shared emails managed?',
+                'ask_about_non_authorized_use': 'What email use is restricted?',
+                'ask_about_email_gateway_security': 'How are email gateways protected?',
+                'ask_about_open_relay': 'What is open mail relay?',
+                'ask_about_policy_purpose': 'What is the policy purpose?',
+                'ask_about_email_disclaimer': 'Is there an automatic email disclaimer?'
+            },
+            ar: {
+                'ask_about_email_protection': 'كيف تحمي جامعة الملك سعود بن عبدالعزيز للعلوم الصحية البريد الإلكتروني؟',
+                'ask_about_email_authentication': 'ما بروتوكولات مصادقة البريد الإلكتروني المستخدمة؟',
+                'ask_about_remote_access': 'كيف يتم تأمين الوصول عن بعد إلى البريد الإلكتروني؟',
+                'ask_about_email_encryption': 'متى يتم تشفير رسائل البريد الإلكتروني؟',
+                'ask_about_email_classification': 'كيف يتم تصنيف رسائل البريد الإلكتروني؟',
+                'ask_about_email_limitations': 'ما الحد الأقصى لحجم مرفقات البريد الإلكتروني؟',
+                'ask_about_admin_access': 'هل يمكن للمدراء قراءة رسائلي الإلكترونية؟',
+                'ask_about_policy_compliance': 'من ينفذ سياسة أمن البريد الإلكتروني؟',
+                'ask_about_email_backup': 'هل يتم عمل نسخ احتياطية للبريد؟',
+                'ask_about_privileged_accounts': 'هل يمكن للحسابات الإدارية استخدام البريد الإلكتروني؟',
+                'ask_about_generic_accounts': 'كيف تُدار الحسابات العامة؟',
+                'ask_about_non_authorized_use': 'ما القيود المفروضة على استخدام البريد؟',
+                'ask_about_email_gateway_security': 'كيف يتم حماية بوابات البريد الإلكتروني؟',
+                'ask_about_open_relay': 'ما هو خادم البريد المفتوح؟',
+                'ask_about_policy_purpose': 'ما الغرض من سياسة أمن البريد الإلكتروني؟',
+                'ask_about_email_disclaimer': 'هل توجد إضافة تلقائية للتنويه في البريد الإلكتروني؟'
+            }
+        };
+
+        const translations = {
+            en: {
+                title: "💡 KSAU Bot",
+                placeholder: "Ask about email security...",
+                send: "Send",
+                quickActions: {
+                    protection: "Email Protection",
+                    auth: "Auth Protocols",
+                    remote: "Remote Access",
+                    encryption: "Encryption Rules",
+                    classification: "Email Classification",
+                    attachments: "Attachments",
+                    admin: "Admin Access",
+                    compliance: "Policy Compliance",
+                    backups: "Backups",
+                    privileged: "Privileged Accounts",
+                    shared: "Shared Accounts",
+                    usage: "Usage Rules",
+                    gateway: "Gateway Security",
+                    relay: "Relay Protection",
+                    overview: "Policy Overview",
+                    disclaimer: "Email Disclaimer"
+                }
+            },
+            ar: {
+                title: "💡 كاساو بوت",
+                placeholder: "اسأل عن أمن البريد الإلكتروني...",
+                send: "إرسال",
+                quickActions: {
+                    protection: "حماية البريد",
+                    auth: "بروتوكولات المصادقة",
+                    remote: "الوصول عن بُعد",
+                    encryption: "قواعد التشفير",
+                    classification: "تصنيف البريد",
+                    attachments: "المرفقات",
+                    admin: "وصول المدير",
+                    compliance: "الامتثال للسياسة",
+                    backups: "النسخ الاحتياطية",
+                    privileged: "الحسابات المميزة",
+                    shared: "الحسابات المشتركة",
+                    usage: "قواعد الاستخدام",
+                    gateway: "أمان البوابة",
+                    relay: "حماية النقل",
+                    overview: "نظرة عامة",
+                    disclaimer: "تنويه البريد"
+                }
+            }
+        };
+
+        // Theme Configuration
+        let isDarkTheme = false;
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            document.body.setAttribute('data-theme', isDarkTheme ? 'dark' : '');
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', currentLang);
+            updateUI();
+            localStorage.setItem('lang', currentLang);
+        }
+
+        function updateUI() {
+            document.getElementById('headerTitle').textContent = translations[currentLang].title;
+            
+            // تحديث placeholder ونص الزر
+            document.getElementById('custom-input').setAttribute('placeholder', translations[currentLang].placeholder);
+            document.getElementById('send-button-text').textContent = translations[currentLang].send;
+            
+            document.getElementById('langText').textContent = currentLang.toUpperCase();
+
+            document.querySelectorAll('.quick-action').forEach(el => {
+                const key = el.dataset.key;
+                if(key) el.textContent = translations[currentLang].quickActions[key];
+            });
+        }
+
+        function showTypingIndicator() {
+            $('.typing-indicator').fadeIn();
+        }
+
+        function hideTypingIndicator() {
+            $('.typing-indicator').fadeOut();
+        }
+
+        function formatBotResponse(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/`(.*?)`/g, '<code>$1</code>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // Quick Actions Handlers Map
+        const intentMap = {
+            protection: 'ask_about_email_protection',
+            auth: 'ask_about_email_authentication',
+            remote: 'ask_about_remote_access',
+            encryption: 'ask_about_email_encryption',
+            classification: 'ask_about_email_classification',
+            attachments: 'ask_about_email_limitations',
+            admin: 'ask_about_admin_access',
+            compliance: 'ask_about_policy_compliance',
+            backups: 'ask_about_email_backup',
+            privileged: 'ask_about_privileged_accounts',
+            shared: 'ask_about_generic_accounts',
+            usage: 'ask_about_non_authorized_use',
+            gateway: 'ask_about_email_gateway_security',
+            relay: 'ask_about_open_relay',
+            overview: 'ask_about_policy_purpose',
+            disclaimer: 'ask_about_email_disclaimer'
+        };
+
+        // ======== دالة إرسال الرسالة الجديدة ========
+        function sendCustomMessage() {
+            const customInput = document.getElementById('custom-input');
+            if (!customInput) return;
+            
+            const message = customInput.textContent.trim();
+            if (!message) return;
+            
+            // عرض رسالة المستخدم
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const messageElement = `
+                <div class="message user-message">
+                    ${message}
+                    <div class="message-status">${timestamp} · ✓</div>
+                </div>
+            `;
+            
+            document.getElementById('chatbox').insertAdjacentHTML('beforeend', messageElement);
+            customInput.textContent = '';
+            customInput.setAttribute('empty', '');
+            
+            // إظهار مؤشر الكتابة
+            showTypingIndicator();
+            
+            // إرسال الطلب إلى الخادم
+            $.ajax({
+                url: "/chat",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ 
+                    message: message,
+                    lang: currentLang
+                })
+            })
+            .done(function(response) {
+                // عرض رد البوت
+                const botReply = `
+                    <div class="message bot-message">
+                        ${formatBotResponse(response.response)}
+                        <div class="message-status">${timestamp} · مساعد الأمان</div>
+                    </div>
+                `;
+                document.getElementById('chatbox').insertAdjacentHTML('beforeend', botReply);
+            })
+            .fail(function(error) {
+                // عرض رسالة الخطأ
+                const errorMsg = currentLang === 'en' ? 'Couldn\'t process request' : 'تعذر معالجة الطلب';
+                const errorElement = `
+                    <div class="message bot-message">
+                        ❌ ${errorMsg}
+                        <div class="message-status">${currentLang === 'en' ? 'Error' : 'خطأ'} · ${timestamp}</div>
+                    </div>
+                `;
+                document.getElementById('chatbox').insertAdjacentHTML('beforeend', errorElement);
+            })
+            .always(function() {
+                // إخفاء مؤشر الكتابة
+                hideTypingIndicator();
+                
+                // التمرير إلى أسفل
+                const chatbox = document.getElementById('chatbox');
+                chatbox.scrollTop = chatbox.scrollHeight;
+                
+                // تركيز حقل الإدخال
+                customInput.focus();
+            });
+        }
+
+        // ======== دالة إدراج السؤال للإجراءات السريعة ========
+        function insertQuestionByLang(intentKey) {
+            const question = intentQuestions[currentLang][intentKey];
+            const customInput = document.getElementById('custom-input');
+            
+            if (customInput) {
+                customInput.textContent = question;
+                customInput.removeAttribute('empty');
+                customInput.focus();
+            }
+        }
+
+        // ======== إعداد العناصر عند تحميل الصفحة ========
+        document.addEventListener('DOMContentLoaded', function() {
+            // إعداد مربع الإدخال المخصص
+            const customInput = document.getElementById('custom-input');
+            
+            // إظهار النص البديل عند تحميل الصفحة
+            if (customInput.textContent.trim() === '') {
+                customInput.setAttribute('empty', '');
+            }
+            
+            // حدث تغيير المحتوى لمعالجة النص البديل
+            customInput.addEventListener('input', function() {
+                if (this.textContent.trim() === '') {
+                    this.setAttribute('empty', '');
+                } else {
+                    this.removeAttribute('empty');
+                }
+            });
+            
+            // حدث الضغط على Enter لإرسال الرسالة
+            customInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendCustomMessage();
+                }
+            });
+            
+            // ربط زر الإرسال
+            document.getElementById('send-button').addEventListener('click', sendCustomMessage);
+            
+            // ربط الإجراءات السريعة
+            document.querySelectorAll('.quick-action').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const key = this.getAttribute('data-key');
+                    const intentKey = intentMap[key];
+                    insertQuestionByLang(intentKey);
+                });
+            });
+            
+            // تركيز حقل الإدخال عند تحميل الصفحة
+            customInput.focus();
+            
+            // تركيز عند النقر في أي مكان على الشاشة للأجهزة المحمولة
+            document.addEventListener('click', function() {
+                customInput.focus();
+            });
+            
+            // منع انتشار النقر عندما يتم النقر داخل مربع الإدخال
+            customInput.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Initialize Settings
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') toggleTheme();
+
+        const savedLang = localStorage.getItem('lang') || 'en';
+        if (savedLang === 'ar') toggleLanguage();
+
+        // كود إضافي للتأكد من تركيز مربع الإدخال
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('custom-input').focus();
+            }, 300);
+        });
+    </script>
+</body>
+</html>
